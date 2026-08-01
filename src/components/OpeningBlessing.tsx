@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import type { ThemeDefinition } from "../config/themes";
 import Ornament from "./Ornament";
+import SparkleField from "./SparkleField";
 
 interface OpeningBlessingProps {
   theme: ThemeDefinition;
@@ -9,12 +10,14 @@ interface OpeningBlessingProps {
 /** Short, respectful religion-specific moment shown right after the envelope opens. */
 export default function OpeningBlessing({ theme }: OpeningBlessingProps) {
   return (
-    <section className="flex min-h-[70svh] flex-col items-center justify-center gap-6 px-6 text-center">
+    <section className="relative flex min-h-[60svh] flex-col items-center justify-center gap-6 overflow-hidden px-6 py-16 text-center">
+      <SparkleField count={12} />
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, amount: 0.6 }}
         transition={{ duration: 1, ease: "easeOut" }}
+        className="relative z-10"
       >
         <Ornament motif={theme.motif} className="mx-auto mb-6 h-8 w-32" />
         <p

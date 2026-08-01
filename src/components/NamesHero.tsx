@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Ornament from "./Ornament";
+import SparkleField from "./SparkleField";
 import type { ThemeDefinition } from "../config/themes";
 
 interface NamesHeroProps {
@@ -10,59 +11,71 @@ interface NamesHeroProps {
   theme: ThemeDefinition;
 }
 
-function AnimatedName({ text, delayBase = 0 }: { text: string; delayBase?: number }) {
-  return (
-    <span className="inline-flex">
-      {text.split("").map((char, i) => (
-        <motion.span
-          key={`${char}-${i}`}
-          initial={{ opacity: 0, y: 24, rotateZ: -4 }}
-          whileInView={{ opacity: 1, y: 0, rotateZ: 0 }}
-          viewport={{ once: true, amount: 0.8 }}
-          transition={{ delay: delayBase + i * 0.04, duration: 0.5, ease: "easeOut" }}
-        >
-          {char === " " ? " " : char}
-        </motion.span>
-      ))}
-    </span>
-  );
-}
-
 export default function NamesHero({ partnerOne, partnerTwo, tagline, theme }: NamesHeroProps) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [10, 0, -10]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.94, 1, 0.94]);
+  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [8, 0, -8]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.96, 1, 0.96]);
 
   return (
     <section
       ref={ref}
-      className="flex min-h-[90svh] flex-col items-center justify-center gap-8 px-6 text-center"
+      className="relative flex min-h-[80svh] flex-col items-center justify-center gap-6 overflow-hidden px-6 py-16 text-center"
       style={{ perspective: 1000 }}
     >
-      <motion.div style={{ rotateX, scale }} className="flex flex-col items-center gap-4">
+      <SparkleField count={16} />
+      <motion.div
+        style={{ rotateX, scale }}
+        className="relative z-10 flex flex-col items-center gap-3"
+      >
         <p
-          className="font-body text-sm tracking-[0.35em] uppercase"
+          className="font-body text-xs tracking-[0.35em] uppercase sm:text-sm"
           style={{ color: "var(--color-text-soft)" }}
         >
           {tagline}
         </p>
-        <h1
-          className="font-script text-6xl leading-tight sm:text-8xl"
+
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+          className="font-script px-2 pb-2 leading-[1.15] text-6xl sm:text-7xl"
           style={{ color: "var(--color-primary)" }}
         >
-          <AnimatedName text={partnerOne} />
-        </h1>
-        <span className="font-display text-3xl" style={{ color: "var(--color-secondary)" }}>
+          {partnerOne}
+        </motion.h1>
+
+        <motion.span
+          initial={{ opacity: 0, scale: 0.7 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.35 }}
+          className="font-display text-2xl"
+          style={{ color: "var(--color-secondary)" }}
+        >
           &amp;
-        </span>
-        <h1
-          className="font-script text-6xl leading-tight sm:text-8xl"
+        </motion.span>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.9, delay: 0.5, ease: "easeOut" }}
+          className="font-script px-2 pb-2 leading-[1.15] text-6xl sm:text-7xl"
           style={{ color: "var(--color-primary)" }}
         >
-          <AnimatedName text={partnerTwo} delayBase={partnerOne.length * 0.04 + 0.3} />
-        </h1>
-        <Ornament motif={theme.motif} className="mt-6 h-8 w-40" />
+          {partnerTwo}
+        </motion.h1>
+
+        <motion.div
+          initial={{ opacity: 0, scaleX: 0 }}
+          whileInView={{ opacity: 1, scaleX: 1 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
+        >
+          <Ornament motif={theme.motif} className="mt-4 h-8 w-40" />
+        </motion.div>
       </motion.div>
     </section>
   );

@@ -4,6 +4,7 @@ import type { WeddingEvent } from "../config/invite.config";
 import type { ThemeDefinition } from "../config/themes";
 import { formatLongDate } from "../lib/utils";
 import Ornament from "./Ornament";
+import SparkleField from "./SparkleField";
 
 interface DateRevealProps {
   weddingDate: string;
@@ -15,9 +16,10 @@ export default function DateReveal({ weddingDate, events, theme }: DateRevealPro
   const [revealed, setRevealed] = useState(false);
 
   return (
-    <section className="flex min-h-[90svh] flex-col items-center justify-center gap-10 px-6 py-20 text-center">
+    <section className="relative flex min-h-[75svh] flex-col items-center justify-center gap-10 overflow-hidden px-6 py-20 text-center">
+      <SparkleField count={14} />
       <p
-        className="font-body text-sm tracking-[0.35em] uppercase"
+        className="relative z-10 font-body text-sm tracking-[0.35em] uppercase"
         style={{ color: "var(--color-text-soft)" }}
       >
         Save the date

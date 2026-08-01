@@ -5,34 +5,41 @@
   --color-bg-soft: #fff3e0;
   --color-primary: #8b1e3f;
   --color-secondary: #c8a24a;
+  --color-silver: #c9ccd1;
   --color-accent: #e0703a;
   --color-text: #2c1810;
   --color-text-soft: #6b5a4d;
+  --color-backdrop: #1a1410;
   --font-display: "Playfair Display", serif;
   --font-script: "Great Vibes", cursive;
   --font-body: "Cormorant Garamond", serif;
   --font-blessing: var(--font-display);
+  --bg-pattern: radial-gradient(circle at 1px 1px, var(--color-secondary) 1px, transparent 0);
 }
 
 [data-theme="hindu"] {
   --color-bg: #fff8ec;
-  --color-bg-soft: #fdecd2;
-  --color-primary: #8a0000;
+  --color-bg-soft: #fbe4c2;
+  --color-primary: #a5001e;
   --color-secondary: #d4af37;
-  --color-accent: #ff7a00;
+  --color-silver: #e8c9d8;
+  --color-accent: #ff7a1a;
   --color-text: #3a0d0d;
-  --color-text-soft: #7a4a2e;
+  --color-text-soft: #8a4a1e;
+  --color-backdrop: #2b0a0a;
   --font-blessing: "Tiro Devanagari Hindi", serif;
 }
 
 [data-theme="muslim"] {
   --color-bg: #f8faf7;
-  --color-bg-soft: #e9f2ea;
-  --color-primary: #0f5c3f;
+  --color-bg-soft: #e2eee4;
+  --color-primary: #0b4d34;
   --color-secondary: #c9a44c;
+  --color-silver: #cfd6d2;
   --color-accent: #0a3d2c;
   --color-text: #14261e;
   --color-text-soft: #4b5f55;
+  --color-backdrop: #0a1f16;
   --font-blessing: "Amiri", serif;
 }
 
@@ -41,9 +48,11 @@
   --color-bg-soft: #f1ece1;
   --color-primary: #7c8d6d;
   --color-secondary: #c8a24a;
+  --color-silver: #d9d3c6;
   --color-accent: #a6785f;
   --color-text: #2e2a24;
   --color-text-soft: #6b6153;
+  --color-backdrop: #211f1a;
   --font-blessing: "Cinzel", serif;
 }
 
@@ -52,9 +61,11 @@
   --color-bg-soft: #efe6df;
   --color-primary: #4a3b52;
   --color-secondary: #c8a24a;
+  --color-silver: #d6d1da;
   --color-accent: #8b6f9e;
   --color-text: #221c25;
   --color-text-soft: #665a6c;
+  --color-backdrop: #1c1620;
   --font-blessing: var(--font-display);
 }
 
@@ -68,14 +79,14 @@ html {
 
 body {
   margin: 0;
-  background: var(--color-bg);
+  background: var(--color-backdrop);
   color: var(--color-text);
   font-family: var(--font-body);
   overflow-x: hidden;
 }
 
 #root {
-  min-height: 100svh;
+  min-height: 100dvh;
 }
 
 ::-webkit-scrollbar {
@@ -94,4 +105,42 @@ body {
 }
 .font-blessing {
   font-family: var(--font-blessing);
+}
+
+/* Ambient dot texture + soft vignette so the card never reads as a blank void while scrolling. */
+.card-texture {
+  background-image:
+    radial-gradient(ellipse at top, var(--color-bg-soft) 0%, transparent 60%),
+    var(--bg-pattern);
+  background-size: 100% 100%, 22px 22px;
+  background-position: 0 0, 0 0;
+  background-color: var(--color-bg);
+}
+.card-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(ellipse at 1px 1px, color-mix(in srgb, var(--color-secondary) 35%, transparent) 1px, transparent 0);
+  background-size: 22px 22px;
+  opacity: 0.35;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.8) translateY(0);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.15) translateY(-6px);
+  }
+}
+
+.sparkle {
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+  animation: twinkle ease-in-out infinite;
 }

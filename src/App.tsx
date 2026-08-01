@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { inviteConfig } from "./config/invite.config";
+import { demoPresets } from "./config/demoPresets";
 import { themes, type ThemeId } from "./config/themes";
+import { applyUrlOverrides } from "./lib/overrides";
 import Cover from "./components/Cover";
 import OpeningBlessing from "./components/OpeningBlessing";
 import NamesHero from "./components/NamesHero";
@@ -21,6 +23,14 @@ export default function App() {
   const [themeId, setThemeId] = useState<ThemeId>(getInitialTheme);
   const [opened, setOpened] = useState(false);
   const theme = themes[themeId];
+  // Editing invite.config.ts always wins for its own theme. Previewing a
+  // different theme via the switcher shows that theme's full demo couple,
+  // so flipping themes never looks mismatched (real names under a
+  // different theme's colors/blessing).
+  const config = useMemo(() => {
+    const base = themeId === inviteConfig.theme ? inviteConfig : demoPresets[themeId];
+    return applyUrlOverrides(base);
+  }, [themeId]);
 
   useEffect(() => {
     document.body.style.overflow = opened ? "" : "hidden";
@@ -34,71 +44,61 @@ export default function App() {
   }
 
   return (
-    <div data-theme={themeId} className="relative">
-      <ThemeSwitcher current={themeId} onChange={handleThemeChange} />
-      <Cover
-        partnerOne={inviteConfig.partnerOne}
-        partnerTwo={inviteConfig.partnerTwo}
-        onOpen={() => setOpened(true)}
-      />
-      <MusicToggle src={inviteConfig.music?.src} armed={opened} />
+    <div data-theme={themeId} className="min-h-dvh w-full" style={{ background: "var(--color-backdrop)" }}>
+      <div className="card-texture relative mx-auto min-h-dvh w-full max-w-[480px] overflow-hidden shadow-2xl sm:my-8 sm:min-h-[calc(100dvh-4rem)] sm:rounded-sm">
+        <ThemeSwitcher current={themeId} onChange={handleThemeChange} />
+        <Cover partnerOne={config.partnerOne} partnerTwo={config.partnerTwo} onOpen={() => setOpened(true)} />
+        <MusicToggle src={config.music?.src} armed={opened} />
 
-      <main>
-        <OpeningBlessing theme={theme} />
-        <NamesHero
-          partnerOne={inviteConfig.partnerOne}
-          partnerTwo={inviteConfig.partnerTwo}
-          tagline={inviteConfig.tagline}
-          theme={theme}
-        />
+        <main className="relative">
+          <OpeningBlessing theme={theme} />
+          <NamesHero
+            partnerOne={config.partnerOne}
+            partnerTwo={config.partnerTwo}
+            tagline={config.tagline}
+            theme={theme}
+          />
 
-        {inviteConfig.heroPhoto && (
-          <section className="flex flex-col items-center px-6 py-10">
-            <div
-              className="h-72 w-72 overflow-hidden rounded-full border-4 sm:h-80 sm:w-80"
-              style={{ borderColor: "var(--color-secondary)" }}
+          {config.heroPhoto && (
+            <section className="relative flex flex-col items-center px-6 py-10">
+              <div
+                className="h-64 w-64 overflow-hidden rounded-full border-4 sm:h-72 sm:w-72"
+                style={{ borderColor: "var(--color-secondary)", boxShadow: "0 0 0 1px var(--color-silver)" }}
+              >
+                <img
+                  src={config.heroPhoto}
+                  alt={`${config.partnerOne} & ${config.partnerTwo}`}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </section>
+          )}
+
+          <section className="relative flex flex-col items-center gap-6 px-6 py-14 text-center">
+            <Ornament motif={theme.motif} className="h-8 w-32" />
+            <p
+              className="font-body max-w-xl text-lg italic leading-relaxed"
+              style={{ color: "var(--color-text-soft)" }}
             >
-              <img
-                src={inviteConfig.heroPhoto}
-                alt={`${inviteConfig.partnerOne} & ${inviteConfig.partnerTwo}`}
-                className="h-full w-full object-cover"
-              />
-            </div>
+              {config.note}
+            </p>
           </section>
-        )}
 
-        <section className="flex flex-col items-center gap-6 px-6 py-16 text-center">
-          <Ornament motif={theme.motif} className="h-8 w-32" />
-          <p
-            className="font-body max-w-xl text-lg italic leading-relaxed"
-            style={{ color: "var(--color-text-soft)" }}
-          >
-            {inviteConfig.note}
-          </p>
-        </section>
+          <DateReveal weddingDate={config.weddingDate} events={config.events} theme={theme} />
+          <MapSection events={config.events} />
+          <RSVP rsvp={config.rsvp} partnerOne={config.partnerOne} partnerTwo={config.partnerTwo} />
 
-        <DateReveal
-          weddingDate={inviteConfig.weddingDate}
-          events={inviteConfig.events}
-          theme={theme}
-        />
-        <MapSection events={inviteConfig.events} />
-        <RSVP
-          rsvp={inviteConfig.rsvp}
-          partnerOne={inviteConfig.partnerOne}
-          partnerTwo={inviteConfig.partnerTwo}
-        />
-
-        <footer className="flex flex-col items-center gap-3 px-6 py-16 text-center">
-          <Ornament motif={theme.motif} className="h-8 w-32" />
-          <p className="font-script text-3xl" style={{ color: "var(--color-primary)" }}>
-            {inviteConfig.partnerOne} &amp; {inviteConfig.partnerTwo}
-          </p>
-          <p className="font-body text-sm" style={{ color: "var(--color-text-soft)" }}>
-            See you there
-          </p>
-        </footer>
-      </main>
+          <footer className="relative flex flex-col items-center gap-3 px-6 py-14 text-center">
+            <Ornament motif={theme.motif} className="h-8 w-32" />
+            <p className="font-script text-3xl" style={{ color: "var(--color-primary)" }}>
+              {config.partnerOne} &amp; {config.partnerTwo}
+            </p>
+            <p className="font-body text-sm" style={{ color: "var(--color-text-soft)" }}>
+              See you there
+            </p>
+          </footer>
+        </main>
+      </div>
     </div>
   );
 }
