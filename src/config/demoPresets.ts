@@ -41,7 +41,7 @@ export const demoPresets: Record<ThemeId, InviteConfig> = {
       },
     ],
     rsvp: { enabled: true, formEndpoint: "", notifyEmail: "yourname@example.com" },
-    music: { src: "/audio/gayatri-mantra.mp3", title: "Gayatri Mantra" },
+    music: { src: "audio/gayatri-mantra.mp3", title: "Gayatri Mantra" },
   },
   muslim: {
     theme: "muslim",
@@ -69,7 +69,7 @@ export const demoPresets: Record<ThemeId, InviteConfig> = {
       },
     ],
     rsvp: { enabled: true, formEndpoint: "", notifyEmail: "yourname@example.com" },
-    music: { src: "/audio/dua-bismillah.mp3", title: "Bismillahi Arqeek" },
+    music: { src: "audio/dua-bismillah.mp3", title: "Bismillahi Arqeek" },
   },
   christian: {
     theme: "christian",

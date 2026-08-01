@@ -37,7 +37,7 @@ export interface InviteConfig {
     notifyEmail?: string;
   };
   music?: {
-    /** Path under /public, e.g. "/audio/theme-song.mp3". Leave unset to hide the music toggle. */
+    /** Path under /public, no leading slash, e.g. "audio/theme-song.mp3" — a leading slash breaks GitHub Pages subpath deploys. Leave unset to hide the music toggle. */
     src?: string;
     title?: string;
   };
@@ -80,8 +80,7 @@ export const inviteConfig: InviteConfig = {
     notifyEmail: "yourname@example.com",
   },
   music: {
-    // Drop the downloaded MP3 here as unveil/public/audio/nasheed-background.mp3
-    src: "/audio/dua-bismillah.mp3",
+    src: "audio/dua-bismillah.mp3",
     title: "Bismillahi Arqeek",
   },
 };

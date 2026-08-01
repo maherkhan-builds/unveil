@@ -29,7 +29,7 @@ export default function Cover({ partnerOne, partnerTwo, onOpen }: CoverProps) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
         >
-          <audio ref={sfxRef} src="/audio/envelope-sparkle.mp3" />
+          <audio ref={sfxRef} src="audio/envelope-sparkle.mp3" />
           <SparkleField count={opening ? 28 : 16} />
 
           <motion.button
