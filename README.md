@@ -13,6 +13,8 @@
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-0055FF?logo=framer&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+### 🔴 [Live Demo →](https://maherkhan-builds.github.io/unveil/)
+
 </div>
 
 ## The Problem
@@ -41,8 +43,23 @@ decorative motifs, background music) follows automatically from a theme preset.
 | 🔓 Tap-to-reveal date & schedule | The date stays hidden behind a themed seal until tapped, then reveals every event (mehendi, nikah, ceremony, reception…) with its own venue and time |
 | 🗺️ Real Google Maps per venue | Each event gets its own embedded map + a "Get Directions" deep link, generated automatically from the address |
 | 💌 RSVP that notifies you | Guests tap Accept/Decline; submissions post to a form endpoint of your choice (or fall back to a prefilled email) |
-| 🎨 4 built-in themes | `hindu` \| `muslim` \| `christian` \| `universal` — swap live with `?theme=` while you're deciding |
-| 📱 Mobile-first | Built for the "opened from a WhatsApp link on a phone" reality — smooth on mobile and desktop alike |
+| 🎨 4 built-in themes | `hindu` \| `muslim` \| `christian` \| `universal` — swap live with `?theme=`, each with its own full demo couple/schedule/music |
+| ✨ Gold & silver glitter | Twinkling particle accents and a soft dot-texture card background, so no scroll gap ever reads as a blank void |
+| 🔗 Shareable link, no forking needed | Override names/date/venue via URL params to generate a personalized card instantly |
+| 📱 Mobile-first, card-framed | Full-bleed on mobile (built for WhatsApp sharing), a centered card on desktop instead of a stretched-out page |
+
+## Try It Without Forking
+
+Generate a personalized shareable link off the [live demo](https://maherkhan-builds.github.io/unveil/) —
+no install, no fork:
+
+```
+https://maherkhan-builds.github.io/unveil/?theme=hindu&p1=Priya&p2=Arjun&date=2026-03-10&venue=The+Grand+Hall&address=12+Palace+Rd%2C+Jaipur
+```
+
+Supported params: `theme`, `p1`, `p2`, `date`, `venue`, `address`, `note`, `photo` (an image URL).
+This overrides the top-line details only (names/date/first venue/note/photo) — for a full
+multi-event schedule with your own colors and audio, fork the repo below.
 
 ## How to Use It
 
@@ -58,6 +75,10 @@ decorative motifs, background music) follows automatically from a theme preset.
    - `music.src` — drop an MP3 into `public/audio/` and reference it here (optional)
 3. `npm install && npm run dev` to preview.
 4. Deploy anywhere static — GitHub Pages, Vercel, Netlify. Share the link.
+   For GitHub Pages specifically: `npm run build && npx gh-pages -d dist`, then enable
+   Pages on the `gh-pages` branch in repo settings. Keep asset paths in config
+   (`music.src`, etc.) **without a leading slash** — a leading `/` resolves against the
+   domain root and 404s once the site lives under a subpath like `github.io/your-repo/`.
 
 Want a 5th theme? Add an entry to [`src/config/themes.ts`](src/config/themes.ts) (colors, font,
 blessing text, motif) and it's immediately selectable.
