@@ -81,9 +81,7 @@ export const inviteConfig: InviteConfig = {
   },
   music: {
     // Drop the downloaded MP3 here as unveil/public/audio/nasheed-background.mp3
-    // Suggested track: "Nasheed Islamic Background" by SufiSama99 (Pixabay, free to use):
-    // https://pixabay.com/music/ambient-nasheed-islamic-background-133345/
-    src: "/audio/nasheed-background.mp3",
-    title: "Nasheed Islamic Background — SufiSama99 (Pixabay)",
+    src: "/audio/dua-bismillah.mp3",
+    title: "Bismillahi Arqeek",
   },
 };
