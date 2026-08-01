@@ -50,34 +50,27 @@ export interface InviteConfig {
 // automatically.
 // ---------------------------------------------------------------------------
 export const inviteConfig: InviteConfig = {
-  theme: "universal",
-  partnerOne: "Aisha",
-  partnerTwo: "Rohan",
-  tagline: "are getting married",
+  theme: "muslim",
+  partnerOne: "Zainab",
+  partnerTwo: "Imran",
+  tagline: "request the honour of your presence at their Nikah",
   weddingDate: "2026-02-14",
   heroPhoto: "",
   note:
-    "With hearts full of joy, we invite you to celebrate the beginning of our forever. Your presence would mean the world to us.",
+    "By the grace of Allah, we are beginning our journey together and would be blessed to have you share this joy with us.",
   events: [
     {
-      name: "Mehendi & Sangeet",
-      date: "2026-02-12",
-      time: "6:00 PM",
-      venue: "The Garden Pavilion",
-      address: "12 Rose Avenue, Bandra, Mumbai, India",
-    },
-    {
-      name: "Wedding Ceremony",
+      name: "Nikah Ceremony",
       date: "2026-02-14",
       time: "11:00 AM",
-      venue: "Sunset Palace Lawns",
-      address: "88 Marine Drive, Mumbai, India",
+      venue: "Noor Banquet Hall",
+      address: "45 Crescent Road, Bandra, Mumbai, India",
     },
     {
-      name: "Reception",
-      date: "2026-02-14",
+      name: "Walima Reception",
+      date: "2026-02-15",
       time: "7:30 PM",
-      venue: "Sunset Palace Ballroom",
+      venue: "Al Zahra Gardens",
       address: "88 Marine Drive, Mumbai, India",
     },
   ],
@@ -87,7 +80,10 @@ export const inviteConfig: InviteConfig = {
     notifyEmail: "yourname@example.com",
   },
   music: {
-    src: "",
-    title: "",
+    // Drop the downloaded MP3 here as unveil/public/audio/nasheed-background.mp3
+    // Suggested track: "Nasheed Islamic Background" by SufiSama99 (Pixabay, free to use):
+    // https://pixabay.com/music/ambient-nasheed-islamic-background-133345/
+    src: "/audio/nasheed-background.mp3",
+    title: "Nasheed Islamic Background — SufiSama99 (Pixabay)",
   },
 };
