@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+:root {
+  --color-bg: #fffaf3;
+  --color-bg-soft: #fff3e0;
+  --color-primary: #8b1e3f;
+  --color-secondary: #c8a24a;
+  --color-accent: #e0703a;
+  --color-text: #2c1810;
+  --color-text-soft: #6b5a4d;
+  --font-display: "Playfair Display", serif;
+  --font-script: "Great Vibes", cursive;
+  --font-body: "Cormorant Garamond", serif;
+  --font-blessing: var(--font-display);
+}
+
+[data-theme="hindu"] {
+  --color-bg: #fff8ec;
+  --color-bg-soft: #fdecd2;
+  --color-primary: #8a0000;
+  --color-secondary: #d4af37;
+  --color-accent: #ff7a00;
+  --color-text: #3a0d0d;
+  --color-text-soft: #7a4a2e;
+  --font-blessing: "Tiro Devanagari Hindi", serif;
+}
+
+[data-theme="muslim"] {
+  --color-bg: #f8faf7;
+  --color-bg-soft: #e9f2ea;
+  --color-primary: #0f5c3f;
+  --color-secondary: #c9a44c;
+  --color-accent: #0a3d2c;
+  --color-text: #14261e;
+  --color-text-soft: #4b5f55;
+  --font-blessing: "Amiri", serif;
+}
+
+[data-theme="christian"] {
+  --color-bg: #fdfaf6;
+  --color-bg-soft: #f1ece1;
+  --color-primary: #7c8d6d;
+  --color-secondary: #c8a24a;
+  --color-accent: #a6785f;
+  --color-text: #2e2a24;
+  --color-text-soft: #6b6153;
+  --font-blessing: "Cinzel", serif;
+}
+
+[data-theme="universal"] {
+  --color-bg: #faf7f5;
+  --color-bg-soft: #efe6df;
+  --color-primary: #4a3b52;
+  --color-secondary: #c8a24a;
+  --color-accent: #8b6f9e;
+  --color-text: #221c25;
+  --color-text-soft: #665a6c;
+  --font-blessing: var(--font-display);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-secondary);
+  border-radius: 8px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+.font-script {
+  font-family: var(--font-script);
+}
+.font-blessing {
+  font-family: var(--font-blessing);
+}
